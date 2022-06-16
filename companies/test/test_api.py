@@ -25,3 +25,47 @@ class TestGetCompanies(TestCase):
         self.assertEqual(
             response_content.get('application_link'), company.application_link
         )
+
+
+class TestPostCompanies(TestCase):
+    def test_create_company_without_arguments_should_fail(self):
+        res = self.client.post(URL)
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(
+            json.loads(res.content), {'name': ['This field is required.']}
+        )
+
+    def test_create_existing_company_should_fail(self):
+        company = Company.objects.create(name='Test company')
+        res = self.client.post(URL, data={'name': company.name})
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(
+            json.loads(res.content),
+            {'name': ['company with this name already exists.']},
+        )
+
+    def test_create_company_with_only_name_all_fields_should_be_default(self):
+        res = self.client.post(URL, {'name': 'Testing company'})
+        res_content = json.loads(res.content)
+
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(res_content['name'], 'Testing company')
+        self.assertEqual(res_content['status'], 'Hiring')
+        self.assertEqual(res_content['application_link'], '')
+        self.assertEqual(res_content['notes'], '')
+
+    def test_create_company_with_layoffs_status_should_succeed(self):
+        res = self.client.post(
+            URL, {'name': 'New company', 'status': 'Layoffs'}
+        )
+        res_content = json.loads(res.content)
+
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(res_content.get('status'), 'Layoffs')
+
+    def test_create_company_with_wrong_status_should_fail(self):
+        res = self.client.post(
+            URL, {'name': 'Test company', 'status': 'wrong status'}
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('is not a valid choice', str(res.content))
