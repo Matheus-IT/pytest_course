@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "==3.5.2"
+attrs = "==21.4.0"
+"backports.zoneinfo" = "==0.2.1"
+django = "==4.0.5"
+djangorestframework = "==3.13.1"
+greenlet = "==1.1.2"
+iniconfig = "==1.1.1"
+msgpack = "==1.0.4"
+pluggy = "==1.0.0"
+py = "==1.11.0"
+pynvim = "==0.4.3"
+pyparsing = "==3.0.9"
+pytest = "==7.1.2"
+pytz = "==2022.1"
+sqlparse = "==0.4.2"
+tomli = "==2.0.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
