@@ -21,6 +21,7 @@ pytz = "==2022.1"
 sqlparse = "==0.4.2"
 tomli = "==2.0.1"
 black = "*"
+pytest-django = "*"
 
 [dev-packages]
 
