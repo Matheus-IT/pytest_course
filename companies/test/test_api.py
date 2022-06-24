@@ -1,6 +1,7 @@
 import json
 from django.test import TestCase
 from django.urls import reverse
+import pytest
 
 from companies.models import Company
 
@@ -69,3 +70,11 @@ class TestPostCompanies(TestCase):
         )
         self.assertEqual(res.status_code, 400)
         self.assertIn('is not a valid choice', str(res.content))
+
+    @pytest.mark.xfail
+    def test_should_be_ok_to_fail(self):
+        self.assertEqual(1, 2)
+
+    @pytest.mark.skip
+    def test_should_be_skipped(self):
+        self.assertEqual(1, 2)
