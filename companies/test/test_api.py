@@ -1,4 +1,5 @@
 import json
+import logging
 from django.test import TestCase
 from django.urls import reverse
 import pytest
@@ -88,3 +89,15 @@ def test_raise_covid19_exception_should_pass():
     with pytest.raises(ValueError) as e:
         raise_covid19_exception()
     assert 'CoronaVirus Exception' == str(e.value)
+
+
+logger = logging.getLogger('CORONA_LOGS')
+
+
+def function_that_logs_something():
+    logger.warning('I am logging here!')
+
+
+def test_logged_warning_level(caplog):
+    function_that_logs_something()
+    assert 'I am logging here!' in caplog.text
