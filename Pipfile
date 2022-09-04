@@ -22,6 +22,7 @@ sqlparse = "==0.4.2"
 tomli = "==2.0.1"
 black = "*"
 pytest-django = "*"
+django-environ = "*"
 
 [dev-packages]
 
