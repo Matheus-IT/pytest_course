@@ -39,7 +39,7 @@ def test_send_email_without_arguments_should_send_empty_email(client):
         )
 
 
-# def test_send_email_with_get_verb_should_fail(self):
-#     res = self.client.get('/send-email/')
-#     assert res.status_code == 405
-#     assert res.json() == {'detail': 'Method "GET" not allowed.'}
+def test_send_email_with_get_verb_should_fail(client):
+    res = client.get('/send-email/')
+    assert res.status_code == 405
+    assert res.json() == {'detail': 'Method "GET" not allowed.'}
