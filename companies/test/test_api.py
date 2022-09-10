@@ -60,15 +60,6 @@ def test_create_company_with_layoffs_status_should_succeed(client):
     assert res_content.get('status') == 'Layoffs'
 
 
-@pytest.fixture
-def company(**kwargs):
-    def _company_factory(**kwargs) -> Company:
-        company_name = kwargs.pop('name', 'test company inc')
-        return Company.objects.create(name=company_name, **kwargs)
-
-    return _company_factory
-
-
 def test_multiple_companies_exists_should_succeed(client, company):
     ticktock = company(name='ticktock')
     twitch = company(name='twitch')
