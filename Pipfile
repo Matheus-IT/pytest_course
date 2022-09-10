@@ -23,6 +23,7 @@ tomli = "==2.0.1"
 black = "*"
 pytest-django = "*"
 django-environ = "*"
+django-silk = "*"
 
 [dev-packages]
 

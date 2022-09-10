@@ -9,6 +9,7 @@ from rest_framework.request import Request
 
 from companies.models import Company
 from companies.serializers import CompanySerializer
+from fibonacci.dynamic import fibonacci_dynamic_v2
 
 
 class CompanyViewSet(ModelViewSet):
@@ -32,3 +33,14 @@ def send_company_email(request: Request):
         },
         status=status.HTTP_200_OK,
     )
+
+
+@api_view(http_method_names=['GET'])
+def fibonacci(request: Request, n):
+    n = int(n)
+
+    if n < 0:
+        return Response({'error': 'negative_number'})
+
+    result = fibonacci_dynamic_v2(n)
+    return Response({'fibonacci_result': result})
