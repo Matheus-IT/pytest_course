@@ -4,6 +4,7 @@ from django.core import mail
 import pytest
 
 
+@pytest.mark.django_db()
 def test_send_email_should_succeed(mailoutbox, settings):
     settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
@@ -21,6 +22,7 @@ def test_send_email_should_succeed(mailoutbox, settings):
     assert mailoutbox[0].subject == 'test subject'
 
 
+@pytest.mark.django_db()
 def test_send_email_without_arguments_should_send_empty_email(client):
     with patch('companies.views.send_mail') as mock_send_mail:
         res = client.post('/send-email/')
@@ -39,6 +41,7 @@ def test_send_email_without_arguments_should_send_empty_email(client):
         )
 
 
+@pytest.mark.django_db()
 def test_send_email_with_get_verb_should_fail(client):
     res = client.get('/send-email/')
     assert res.status_code == 405
